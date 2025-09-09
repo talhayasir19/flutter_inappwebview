@@ -17,3 +17,12 @@
 -keep class com.pichillilorenzo.flutter_inappwebview_android.** { *; }
 
 -dontwarn android.window.BackEvent
+# Ignore all methods referencing BackEvent
+-dontwarn android.window.**
+-dontnote android.window.**
+
+# Keep Flutter embedding but strip methods that reference BackEvent
+-assumenosideeffects class io.flutter.embedding.android.FlutterActivity {
+    public void startBackGesture(android.window.BackEvent);
+    public void dispatchBackGesture(android.window.BackEvent);
+}
